@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.27004.2006
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XmlToRssTask", "XmlToRssTask\XmlToRssTask.csproj", "{56AEE0E0-882F-4733-932F-D3FF680A5761}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Transformation", "Transformation\Transformation.csproj", "{F1E3A22D-5DDB-43C4-A496-D698D41858A3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{56AEE0E0-882F-4733-932F-D3FF680A5761}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{56AEE0E0-882F-4733-932F-D3FF680A5761}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{56AEE0E0-882F-4733-932F-D3FF680A5761}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F1E3A22D-5DDB-43C4-A496-D698D41858A3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F1E3A22D-5DDB-43C4-A496-D698D41858A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F1E3A22D-5DDB-43C4-A496-D698D41858A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F1E3A22D-5DDB-43C4-A496-D698D41858A3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
