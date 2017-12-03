@@ -1,43 +1,65 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.IO;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Schema;
+using System.Xml.Xsl;
 
 namespace Transformation
 {
-    public class ToRss
+    public class ToRss : ITransformation
     {
-        private XmlReaderSettings _settings;
+        private XmlDocument _xDoc;
+        private string _targetNamespace;
 
-        public ToRss()
+        public void SetXmlFile(Stream stream)
         {
-            _settings = new XmlReaderSettings();
+            _xDoc = new XmlDocument();
+            _xDoc.Load(stream);
 
-            _settings.Schemas.Add("http://library.by/catalog", "schema.xsd");
-            _settings.ValidationEventHandler +=
-                delegate (object sender, ValidationEventArgs e)
-                {
-                    Console.WriteLine("[{0}:{1}] {2}", e.Exception.LineNumber, e.Exception.LinePosition, e.Message);
-                };
-
-            _settings.ValidationFlags = _settings.ValidationFlags | XmlSchemaValidationFlags.ReportValidationWarnings;
-            _settings.ValidationType = ValidationType.Schema;
+            var elem = _xDoc.DocumentElement?.FirstChild;
+            _targetNamespace = elem?.NamespaceURI;
         }
-        public bool CheckXml(Stream stream)
+
+        private void ThrowIsXmlNotSet()
         {
-            XmlReader reader = XmlReader.Create("CDCatalog1.xml", _settings);
-            XmlDocument x = new XmlDocument();
+            if (_xDoc == null || String.IsNullOrEmpty(_targetNamespace)) {
+                throw new ValidationException("Please check that you set xml file for transformation.");
+            }
+        }
 
-            x.Schemas.Add("http://library.by/catalog", "schema.xsd");
-            x.Validate((object sender, ValidationEventArgs e) => {});
+        public bool CheckXml(string schema)
+        {
+            ThrowIsXmlNotSet();
 
-            while (reader.Read());
+            _xDoc.Schemas.Add(_targetNamespace, schema);
 
-            return true;
+            bool isCorrect = true;
+            _xDoc.Validate((object sender, ValidationEventArgs e) => {
+                isCorrect = false;
+            });
+
+            return isCorrect;
+        }
+
+        public string Convert(string xsltFile)
+        {
+            ThrowIsXmlNotSet();
+
+            var xsl = new XslCompiledTransform();
+            xsl.Load(xsltFile);
+
+            var xlsParams = new XsltArgumentList();
+            xlsParams.AddParam("Date", "", DateTime.Now);
+
+            using (Stream outStream = new MemoryStream()) {
+                xsl.Transform(_xDoc, xlsParams, outStream);
+                outStream.Seek(0, SeekOrigin.Begin);
+                using (var reader = new StreamReader(outStream, Encoding.UTF8)) {
+                    return reader.ReadToEnd();
+                }
+            }
         }
     }
 }

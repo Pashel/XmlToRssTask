@@ -1,21 +1,20 @@
 ﻿$(document).ready(function () {
     var dropZone = $('#dropZone');
-    var initContainer = $('#init-container');
 
     dropZone[0].ondragover = function () {
         dropZone.addClass('hover');
-        initContainer.addClass('hidden');
         return false;
     };
 
     dropZone[0].ondragleave = function () {
         dropZone.removeClass('hover');
-        initContainer.removeClass('hidden');
         return false;
     };
 
     dropZone[0].ondrop = function (event) {
         event.preventDefault();
+        dropZone.removeClass("error");
+        dropZone.removeClass('hover');
         upload(event.dataTransfer.files[0]);
     };
 
@@ -24,15 +23,17 @@
         fd.append("file", file);
 
         $.ajax({
-            url: '/home/index',
+            url: '/home/UploadXml',
             data: fd,
             type: 'POST',
             processData: false,
+            contentType: false, 
             success: function (data) {
-                dropZone.html(data);
+                dropZone.text(data);
             },
-            error: function (data) {
-                dropZone.html(data);
+            error: function (error) {
+                dropZone.html(error.statusText);
+                dropZone.addClass("error");
             }
         });
     };

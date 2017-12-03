@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XmlToRssTask", "XmlToRssTas
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Transformation", "Transformation\Transformation.csproj", "{F1E3A22D-5DDB-43C4-A496-D698D41858A3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XmlToRssTask.Tests", "XmlToRssTask.Tests\XmlToRssTask.Tests.csproj", "{81DF74C4-1099-4490-8C06-944F3A602F72}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{F1E3A22D-5DDB-43C4-A496-D698D41858A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F1E3A22D-5DDB-43C4-A496-D698D41858A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F1E3A22D-5DDB-43C4-A496-D698D41858A3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{81DF74C4-1099-4490-8C06-944F3A602F72}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{81DF74C4-1099-4490-8C06-944F3A602F72}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{81DF74C4-1099-4490-8C06-944F3A602F72}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{81DF74C4-1099-4490-8C06-944F3A602F72}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
